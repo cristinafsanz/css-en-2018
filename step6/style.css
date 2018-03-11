@@ -1,0 +1,172 @@
+:root {
+  --c-accent: #BB3900;
+  --c-background: #222;
+  --c-medium: #797470;
+  --c-text: #F1F1EC;
+  --spacer: 15px;
+}
+
+/* Generic styles */
+body {
+  background-color: var(--c-background);
+  color: var(--c-text);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  margin: 0;
+}
+*:focus {
+  outline-color: var(--c-accent);
+}
+a {
+  color: var(--c-accent);
+}
+a:visited {
+  color: var(--c-medium);
+}
+a:hover, a:focus {
+  font-weight: bold;
+}
+input {
+  padding: 0.5rem;
+}
+button {
+  --c-btn-background: var(--c-medium);
+  background-color: var(--c-btn-background);
+  border-style: solid;
+  border-color: var(--c-btn-background);
+  color: var(--c-text);
+  font-weight: bold;
+  padding: 0.5rem;
+}
+button:hover {
+  cursor: pointer;
+}
+button:hover, buton:focus {
+  --c-btn-background: var(--c-accent);
+}
+/* Generic classes */
+.flex-right {
+  margin-left: auto;
+}
+/* Header */
+header {
+  align-items: flex-end;
+  display: flex;
+  padding: calc(var(--spacer) / 2) var(--spacer);
+  margin-bottom: calc(var(--spacer) / 2);
+}
+header a {
+  margin-left: var(--spacer);
+  white-space: nowrap;
+}
+header input:placeholder-shown {
+  border: var(--c-accent) 2px solid;
+}
+.logo img {
+  max-width: 150px;
+  min-width: 80px;
+  width: 100%;
+}
+/* Main content */
+main {
+  display: flex;
+  flex-wrap: wrap;
+}
+main div {
+  position: relative;
+}
+main img {
+  display: block;
+  filter: contrast(0.9) sepia(0.2);
+  max-width: 250px;
+  position: relative;
+}
+main span {
+  top: 1rem;
+  display: none;
+  position: absolute;
+  width: 100%;
+}
+main div:hover span, main div:focus span {
+  background-color: var(--c-background);
+  display: inline;
+}
+@supports (filter: grayscale(1)) {
+  main div:hover img, main div:focus img {
+    filter: grayscale(.3) blur(2px) brightness(.5);
+  }
+  main div:hover span, main div:focus span {
+    background-color: transparent;
+  }
+}
+.landscape {
+  grid-column: span 2;
+}
+.portrait {
+  grid-row: span 2;
+}
+@supports (mix-blend-mode: overlay) {
+  /* Filter idea from cssgram */
+  main div:after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    pointer-events: none;
+    z-index: 3;
+  }
+  main div::after {
+    background-image: radial-gradient(circle, #ecc798 20%, #d35435 75%, #634c03 100%);
+    mix-blend-mode: overlay;
+    opacity: 0.4;
+  }
+}
+@supports (display: grid) {
+  main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* Chrome grid in grid fix */
+    grid-auto-rows: 200px;
+    grid-auto-flow: dense;
+    grid-gap: var(--spacer);
+  }
+  main div {
+    align-items: end;
+    display: grid;
+  }
+  main img {
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    width: 100%;
+  }
+  main span {
+    position: relative;
+    top: 0;
+  }
+  main img, main span {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+/* Footer */
+footer {
+  display: flex;
+  flex-direction: column;
+  font-size: .8rem;
+  margin-top: var(--spacer);
+  text-align: center;
+}
+footer p {
+  margin: 0.5em;
+}
+.social-logos {
+  display: flex;
+  justify-content: space-evenly;
+}
+.social-logos img {
+  height: 40px;
+}
